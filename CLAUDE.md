@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Unity 6 (6000.3.7f1) 3D survival shooter game based on Unity's official tutorial. Players fight waves of enemies (ZomBear, ZomBunny, Hellephant) using raycast-based shooting while managing health and score.
+Unity 6 (6000.3.7f1) 3D survival shooter game based on Unity's official tutorial. Players fight waves of enemies (ZomBear, ZomBunny, Hellephant) using raycast-based shooting while managing health and score. **All Unity audio has been stripped** — this project is intended for FMOD integration by graduate composers/sound designers.
 
 ## Build & Development
 
@@ -21,7 +21,7 @@ Nine MonoBehaviour scripts in `Assets/Scripts/`, organized into three systems:
 ### Player System (`Scripts/Player/`)
 - **PlayerHealth** — Health state (100 HP), damage flash UI, death handling, level restart
 - **PlayerMovement** — Currently an empty stub (no implementation)
-- **PlayerShooting** — Raycast hitscan on "Shootable" layer, 20 damage/shot, 0.15s fire rate, visual/audio effects
+- **PlayerShooting** — Raycast hitscan on "Shootable" layer, 20 damage/shot, 0.15s fire rate, visual effects (no audio)
 
 ### Enemy System (`Scripts/Enemy/`)
 - **EnemyHealth** — Per-enemy health, hit particles, death animation, sinking removal after death
@@ -46,6 +46,18 @@ Player shoots → Raycast on Shootable layer → EnemyHealth.TakeDamage() → de
 Enemy spawns → NavMesh pathfinding to player → Trigger enter → EnemyAttack → PlayerHealth.TakeDamage()
 Player dies → EnemyManager stops spawning, GameOverManager triggers UI
 ```
+
+## Audio Status
+
+All Unity audio has been removed from this project to prepare for FMOD integration:
+- No AudioSource components on any prefabs or scene objects
+- No AudioClip references in scripts or serialized data
+- No audio asset files (`Assets/Audio/` deleted)
+- No AudioMixer/AudioMixerSnapshot references
+- `MixLevels.cs` and `VolumeHandler.cs` scripts deleted
+- `PauseManager.cs` retains pause logic but audio mixer snapshot transitions removed
+- AudioListener on MainCamera is kept (harmless; students will add FMOD's StudioListener)
+- The BackgroundMusic GameObject has been removed from the scene
 
 ## Notable Issues
 
